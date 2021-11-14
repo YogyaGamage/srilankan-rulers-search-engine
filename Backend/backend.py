@@ -10,17 +10,17 @@ es = Elasticsearch()
 app = Flask(__name__)
 
 
-ruler = ["ගේ","ගෙ","කියන","ගායනා","කිව්ව","ගැයූ","ගයපු"]
-predecessor = ["රචනා","ලිව්ව","ලියන","ලියපු","රචිත"]
-successor = ["වාදනය","සංගීතය","නාද"]
-period = ["හොදම","ප්‍රමුඛතම","ප්‍රධාන","ජනප්‍රිය"]
-default = {"title_si":1.5,"artist":1.0,"writer":1.0,"music":1.0,"genre":1.0,"lyrics":1.5}
+ruler = ["ගේ","ගෙ"]
+predecessor = ["පසු","පස්සේ","පසුව"]
+successor = ["පෙර","කලින්"]
+period = ["යුගයේ","කාළයේ"]
+default = {"ruler":1.5,"predecessor":1.0,"successor":1.0,"period":1.0,"details":1.5}
 period_extra = ["නව","පැරණි"]
 
 class QueryPreProcess:
 
     def __init__(self):
-        print("-------------initiaize the Query Preprocessor--------------")
+        print("-------------started--------------")
     
     @classmethod
     def preprocessQuery(self, query):
