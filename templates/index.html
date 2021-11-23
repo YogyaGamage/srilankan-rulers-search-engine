@@ -26,9 +26,9 @@
           </form>
           <div class="suggestion-wrap">
             <span>විජය රජතුමා</span>
-            <span>අනුරාධපුර රාජධානිය</span>
-            <span>සිරිමාවෝ බණ්ඩාරනායක</span>
-            <span>සිරි සඟ බෝ රාජවංශය</span>
+            <span>අනුරාධපුර යුගයේ රජවරු</span>
+            <span>උපතිස්ස රජට පෙර සිටි රජු</span>
+            <span>කෝට්ටේ රාජධානියේ අවසාන රජවරු 05 දෙනා</span>
           </div>
         </fieldset>
       </form>
@@ -49,46 +49,46 @@
           </li>
         </ul>
       </div>
-    {% else %}
-      {% if hits %}
-        <div class="s001">
-          <ul class="article-list-vertical">
-              <li>
-                <div>
-                  <h2 id="results"><strong class="text-danger">{{ num_results }}</strong> results were found for the search for <strong class="text-danger">{{  query  }}</strong></h2>
-                  <h2 id="results"> In <strong class="text-danger">( {{  time  }} ms)</strong></h2>
-                </div>
-              </li>
-              {% for hit in hits %}
-                <li>
-                    <div>
-                        <h2>{{ hit._source.name  }} - {{ hit._source.period  }}</h2>
-                        <p><b>විවාහයන් : </b> {{ hit._source.marriages  }}</p>
-                        <p><b>මරණය : </b> {{ hit._source.death }}</p>
-                        <p><b>රාජවංශය/පක්ෂය : </b>{{ hit._source.house  }}</p>
-                        <p><b>රාජධානිය/අගනගරය : </b>{{ hit._source.capital  }}</p>
-                        <p><b>පූර්වප්‍රාප්තිකයා : </b>{{ hit._source.predecessor  }}</p>
-                        <p><b>අනුප්‍රාප්තිකයා : </b>{{ hit._source.successor  }}</p>
-                        <p>{{ hit._source.details  }}</p>
-                    </div>
-                </li>
-              {% endfor %}
-          </ul>
-        </div>
-      {% else %}
-        {% if init %}
-        {% else %}
+    {% endif %}
+    {% if hits %}
+      <div class="s001">
         <ul class="article-list-vertical">
-          <li>
-            <div>
-              <h1>Search Results</h1>
-              <h2 class="lead"><strong class="text-danger">0</strong> results were found for the search for <strong class="text-danger">{{  query  }}</strong></h2>
-            </div>
-          </li>
+            <li>
+              <div>
+                <h2 id="results"><strong class="text-danger">{{ num_results }}</strong> results were found for the search for <strong class="text-danger">{{  query  }}</strong></h2>
+                <h2 id="results"> In <strong class="text-danger">( {{  time  }} ms)</strong></h2>
+              </div>
+            </li>
+            {% for hit in hits %}
+              <li>
+                  <div>
+                      <h2>{{ hit._source.name  }} - {{ hit._source.period  }}</h2>
+                      <p><b>විවාහයන් : </b> {{ hit._source.marriages  }}</p>
+                      <p><b>මරණය : </b> {{ hit._source.death }}</p>
+                      <p><b>රාජවංශය/පක්ෂය : </b>{{ hit._source.house  }}</p>
+                      <p><b>රාජධානිය/අගනගරය : </b>{{ hit._source.capital  }}</p>
+                      <p><b>පූර්වප්‍රාප්තිකයා : </b>{{ hit._source.predecessor  }}</p>
+                      <p><b>අනුප්‍රාප්තිකයා : </b>{{ hit._source.successor  }}</p>
+                      <p>{{ hit._source.details  }}</p>
+                  </div>
+              </li>
+            {% endfor %}
         </ul>
-        {% endif %}
+      </div>
+    {% else %}
+      {% if init %}
+      {% else %}
+      <ul class="article-list-vertical">
+        <li>
+          <div>
+            <h1>Search Results</h1>
+            <h2 class="lead"><strong class="text-danger">0</strong> results were found for the search for <strong class="text-danger">{{  query  }}</strong></h2>
+          </div>
+        </li>
+      </ul>
       {% endif %}
     {% endif %}
+    
     <script src="{{ url_for('static',filename='js/extention/choices.js') }}"> </script>
     <script>
       var textPresetVal = new Choices('#choices-text-preset-values',

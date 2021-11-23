@@ -22,16 +22,23 @@ def search_engine():
     if request.method == 'GET':
         if request.args:
             query = request.args['searchTerm']
-            res = search(query)
-            hits = res['hits']['hits']
-            time = res['took']
+            hits=[]
+            time=0
+            num_results = 0
+            try:
+                res = search(query)
+                hits = res['hits']['hits']
+                time = res['took']
+                num_results =  res['hits']['total']['value']
+            except:
+                pass
             aggs=False
             try :
                 aggs = res['aggregations']
             except:
                 pass
             print(aggs)
-            num_results =  res['hits']['total']['value']
+            
             return render_template('index.html', query=query, hits=hits, num_results=num_results, time=time, aggs=aggs)
         return render_template('index.html', init='True')
 

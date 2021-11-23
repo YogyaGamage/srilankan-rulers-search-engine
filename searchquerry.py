@@ -19,7 +19,7 @@ successor_identifiers = ["පෙර","කලින්"]
 period_identifiers = ["යුගයේ","කාළයේ","අවුරුද්දේ","වසරේ"]
 
 default = {"ruler":1.5,"predecessor":1.0,"successor":1.0,"period":1.0,"details":1.0}
-period_extra = ["නව"]
+period_extra = ["නව","අවසාන"]
 agg_extra = ["ගණන","කීයද","ප්‍රමාණය","කීදෙනාද"]
 val_extra = ["දෙනා","ක්", "දෙනෙක්"]
 
