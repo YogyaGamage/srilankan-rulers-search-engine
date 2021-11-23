@@ -16,9 +16,10 @@ client = Elasticsearch(HOST="http://localhost",PORT=9200)
 ruler_identifiers = ["ගේ","ගෙ"]
 predecessor_identifiers = ["පසු","පස්සේ","පසුව"]
 successor_identifiers = ["පෙර","කලින්"]
-period_identifiers = ["යුගයේ","කාළයේ","අවුරුද්දේ","වසරේ"]
-
-default = {"ruler":1.5,"predecessor":1.0,"successor":1.0,"period":1.0,"details":1.0}
+period_identifiers = ["කාළයේ","අවුරුද්දේ","වසරේ"]
+capital_identifiers = ["යුගයේ","රාජධානියේ"]
+house_identifiers = ["රාජවංශයේ","වංශයේ"]
+default = {"ruler":1.5,"predecessor":1.0,"successor":1.0,"period":1.0,"capital":1.0,"house":1.0}
 period_extra = ["නව","අවසාන"]
 agg_extra = ["ගණන","කීයද","ප්‍රමාණය","කීදෙනාද"]
 val_extra = ["දෙනා","ක්", "දෙනෙක්"]
@@ -47,11 +48,11 @@ def preprocessQuery(query):
                 return aggMatchQuery(new_query, boosting_string)
             else:
                 if("range" in boosting_fields):
+                    if ("year" in boosting_fields):
+                        return multiComplexMatchQuery(new_query, boosting_string,intExist,True)
                     return multiComplexMatchQuery(new_query, boosting_string,intExist)
                 return multiComplexMatchQuery(new_query, boosting_string)
         else:
-            if("range" in boosting_fields):
-                    return multiComplexMatchQuery(new_query, intExist)
             return simpleMatchQuery(new_query)
  
 
@@ -95,6 +96,14 @@ def matchIdentifyers(tokens,query):
         if(token in period_identifiers or results['affix'] in period_identifiers or results['base'] in period_identifiers):
             boosting_fields.append("period")
             boosting_data['period'] = 2.0
+            query = removeParts(query, [token])
+        if(token in house_identifiers or results['affix'] in house_identifiers or results['base'] in house_identifiers):
+            boosting_fields.append("house")
+            boosting_data['house'] = 2.0
+            query = removeParts(query, [token])
+        if(token in capital_identifiers or results['affix'] in capital_identifiers or results['base'] in capital_identifiers):
+            boosting_fields.append("capital")
+            boosting_data['capital'] = 2.0
             query = removeParts(query, [token])
         
     return list(set(boosting_fields)), boosting_data, query, intExist

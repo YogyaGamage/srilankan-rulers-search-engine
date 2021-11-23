@@ -21,7 +21,7 @@ def basic_search(query):
     return q
 
 
-def simpleMatchQuery(query,size=10):
+def simpleMatchQuery(query,size=10,sortByRating=False):
     print("default")
     if(query.strip()==""):
         body =  {
@@ -46,7 +46,7 @@ def simpleMatchQuery(query,size=10):
     return body
     
 
-def multiComplexMatchQuery(query, boosting_string,size=10):
+def multiComplexMatchQuery(query, boosting_string,size=10, sortByYear=False):
     print("not d")
 
     body =  {
@@ -59,6 +59,12 @@ def multiComplexMatchQuery(query, boosting_string,size=10):
             }
         }
     }
+    if(sortByYear):
+            body["sort"] = {
+                    "death":{
+                         "order":"desc"
+                        }
+                    }
     return body
 
 def aggMatchQuery(query, boosting_string):
